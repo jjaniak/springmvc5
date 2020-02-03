@@ -116,6 +116,18 @@
             <version>2.9.9.2</version>
         </dependency>
 
+        <!-- below needed only to resolve errors appearing because of Java 11 (JAXB APIs were removed from JDK 11) -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.25.0-GA</version>
+        </dependency>
+
     </dependencies>
 
     <build>
