@@ -43,4 +43,17 @@ public class CustomerController {
         return customerService.getCustomer(id);
     }
 
+    // Update
+    @PutMapping("/customers/{id}")
+    @ResponseBody
+    public Customer updateCustomer(@PathVariable Integer id, @RequestBody Customer theCustomer) throws ResourceNotFoundException {
+        customerService.getCustomer(id);  // if ID is not valid an error will be thrown here
+        if (id != theCustomer.getId()) throw new ResourceNotFoundException(theCustomer.getId());  // prevents ID modification
+        return customerService.saveCustomer(theCustomer);
+    }
+
+    @DeleteMapping("/customers/{id}")
+    public void deleteCustomer(@PathVariable Integer id) throws ResourceNotFoundException {
+        customerService.deleteCustomer(id);
+    }
 }
