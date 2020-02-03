@@ -21,7 +21,6 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping("/customers")
-    @ResponseBody
     public List<Customer> listCustomers() {
         LOG.debug("inside show customer-rest handler method");
         return customerService.getCustomers();
@@ -31,23 +30,20 @@ public class CustomerController {
     // returns 201 instead of 200
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/customers")
-    @ResponseBody
     public Customer newCustomer(@RequestBody Customer theCustomer) {
         return customerService.saveCustomer(theCustomer);
     }
 
     // Find
     @GetMapping("/customers/{id}")
-    @ResponseBody
     public Customer findOne(@PathVariable Integer id) throws ResourceNotFoundException {
         return customerService.getCustomer(id);
     }
 
     // Update
     @PutMapping("/customers/{id}")
-    @ResponseBody
     public Customer updateCustomer(@PathVariable Integer id, @RequestBody Customer theCustomer) throws ResourceNotFoundException {
-        customerService.getCustomer(id);  // if ID is not valid an error will be thrown here
+        customerService.getCustomer(id);       // if ID does not exist an error will be thrown here
         if (id != theCustomer.getId()) throw new ResourceNotFoundException(theCustomer.getId());  // prevents ID modification
         return customerService.saveCustomer(theCustomer);
     }
